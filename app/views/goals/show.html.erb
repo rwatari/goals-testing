@@ -1,0 +1,15 @@
+<h1><%= @goal.user.username %></h1>'s
+
+<h1><%= @goal.content %></h1>
+<form action="<%= goal_url(@goal) %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <input type="hidden" name="goal[completed]" value="false">
+
+  <label>Completed
+  <input type="checkbox" name="goal[completed]" value="true" <%= @goal.completed == true ? "checked" : nil %> >
+  </label>
+  <input type="submit" name="" value="Submit">
+</form>

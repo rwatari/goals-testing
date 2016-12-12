@@ -17,6 +17,29 @@ RSpec.describe User, type: :model do
     it { should validate_length_of(:password). is_at_least(6) }
   end
 
+  describe "associations" do
+    it { should have_many(:goals) }
+  end
+
+  describe "#completed_goals" do
+    let(:user) { User.create!(username: "Test User", password: "password") }
+
+    before(:each) do
+      5.times { FactoryGirl.create(:goal, user_id: user.id) }
+    end
+
+    it "returns no goals there are no completed goals" do
+      expect(user.completed_goals.count).to eq(0)
+    end
+
+    it "fetches the user's completed goals" do
+      goal = Goal.last
+      goal.completed = true
+      goal.save!
+      expect(user.completed_goals.count).to eq(1)
+    end
+  end
+
   describe "#password=" do
     it "sets a new password" do
       invalid_user.password=("password")

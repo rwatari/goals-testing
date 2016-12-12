@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :goals
+
   validates :username, :password_digest, :session_token, presence: true
   validates :password, length: { minimum: 6, allow_nil: true}
   after_initialize :ensure_session_token!
@@ -8,6 +10,10 @@ class User < ActiveRecord::Base
     user = User.find_by_username(username)
     return nil unless user && user.is_password?(password)
     user
+  end
+
+  def completed_goals
+    self.goals.where(completed: true)
   end
 
   def password=(password)
