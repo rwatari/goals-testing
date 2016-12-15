@@ -1,12 +1,20 @@
 <h1>Add a Goal</h1>
 
 <form action="<%= goals_url %>" method="post">
-<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <%= auth_token %>
 
-<label>Content
-  <textarea name="goal[content]" rows="8" cols="80"></textarea>
-</label>
+  <label>Content
+    <br>
+    <textarea name="goal[content]" rows="8" cols="80"></textarea>
+  </label>
 
-<input type="submit" name="" value="Add a Goal">
+  <br>
 
+  <label>Private?
+    <input type="checkbox" name="goal[private]" value="true">
+  </label>
+
+  <br>
+
+  <input type="submit" name="" value="Add a Goal">
 </form>

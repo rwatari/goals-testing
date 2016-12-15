@@ -1,14 +1,18 @@
-<h1><%= @goal.user.username %></h1>'s
+<h1><%= link_to @goal.user.username, user_url(@goal.user) %>'s goal</h1>
 
-<h1><%= @goal.content %></h1>
+<% if @goal.completed %>
+  <h1>Complete!</h1>
+<% end %>
+
+<h3><%= @goal.content %></h3>
 <form action="<%= goal_url(@goal) %>" method="post">
   <input type="hidden" name="_method" value="patch">
 
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <%= auth_token %>
 
   <input type="hidden" name="goal[completed]" value="false">
 
-  <label>Completed
+  <label>Completed?
   <input type="checkbox" name="goal[completed]" value="true" <%= @goal.completed == true ? "checked" : nil %> >
   </label>
   <input type="submit" name="" value="Submit">

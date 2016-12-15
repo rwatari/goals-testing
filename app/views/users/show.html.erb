@@ -1,1 +1,12 @@
-<h1>Hello <%= @user.username %> </h1>
+<h1><%= @user.username %>'s Goals</h1>
+
+<%= link_to "Add a goal", new_goal_url %>
+
+<ul>
+  <% @user.goals.each do |goal| %>
+    <% next if goal.private? %>
+    <li>
+      <%= link_to goal.content, goal_url(goal) %>
+    </li>
+  <% end %>
+</ul>

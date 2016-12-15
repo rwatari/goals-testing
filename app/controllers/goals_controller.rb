@@ -4,7 +4,7 @@ class GoalsController < ApplicationController
   end
 
   def show
-    @goal = Goal.find_by(id: params[:id])
+    @goal = Goal.includes(:user).find_by(id: params[:id])
   end
 
   def new
@@ -13,6 +13,7 @@ class GoalsController < ApplicationController
 
   def create
     @goal = Goal.new(goal_params)
+
     @goal.user_id = current_user.id
     if @goal.save
       redirect_to goal_url(@goal)
